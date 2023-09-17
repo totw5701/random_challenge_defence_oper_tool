@@ -97,7 +97,55 @@ insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (40
 insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (41L, 14L, '볼륨을 최대로 올리기');
 insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (42L, 14L, '자유롭게 몸을 흔들면서 음악 느끼기');
 
+insert into challenge_card (id, assign_score, description, difficulty, final_goal, title, experience, challenge_card_category_id) values (15L, 60, '백종원이 되어봅시다. 간단한 요리로 배를 채워보세요.', 3, '요리 사진 인증하기', '간단한 요리 도전', 4, 6L);
+insert into File (id, create_dtm, file_key, challenge_card_id, url, member_id) values (15L, '15920101000000', 'key', 15L, 'https://i.namu.wiki/...webp', 1L);
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (43L, 15L, '요리할 재료 준비하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (44L, 15L, '요리 레시피 찾기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (45L, 15L, '요리 시작하기');
 
+insert into challenge_card (id, assign_score, description, difficulty, final_goal, title, experience, challenge_card_category_id) values (16L, 40, '갓생의 기본을 시작해볼까요?.하루 일과를 기록하며 생활 패턴을 알아보세요.', 2, '일과 기록 인증하기', '하루 일과 기록하기', 1, 7L);
+insert into File (id, create_dtm, file_key, challenge_card_id, url, member_id) values (16L, '15920101000000', 'key', 16L, 'https://i.namu.wiki/...webp', 1L);
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (46L, 16L, '일과 기록 노트 준비하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (47L, 16L, '아침부터 저녁까지 일과 기록하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (48L, 16L, '기록한 일과를 되돌아보기');
 
+insert into challenge_card (id, assign_score, description, difficulty, final_goal, title, experience, challenge_card_category_id) values (17L, 70, '운동의 힘을 느껴봅시다. 짧은 시간의 스트레칭으로 몸을 움켜보세요.', 1, '스트레칭 인증하기', '짧은 시간의 스트레칭', 2, 2L);
+insert into File (id, create_dtm, file_key, challenge_card_id, url, member_id) values (17L, '15920101000000', 'key', 17L, 'https://i.namu.wiki/...webp', 1L);
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (49L, 17L, '스트레칭 운동 선택하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (50L, 17L, '안전한 곳에서 스트레칭 시작하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (51L, 17L, '스트레칭 후 몸의 상태 기록하기');
 
+insert into challenge_card (id, assign_score, description, difficulty, final_goal, title, experience, challenge_card_category_id) values (18L, 80, '사진의 힘을 느껴봅시다. 주변 풍경을 담아보는 시간을 가져보세요.', 4, '풍경 사진 인증하기', '풍경 사진 촬영하기', 5, 6L);
+insert into File (id, create_dtm, file_key, challenge_card_id, url, member_id) values (18L, '15920101000000', 'key', 18L, 'https://i.namu.wiki/...webp', 1L);
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (52L, 18L, '사진을 찍을 장소 선정하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (53L, 18L, '카메라 준비하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (54L, 18L, '주변 풍경 촬영하기');
 
+insert into challenge_card (id, assign_score, description, difficulty, final_goal, title, experience, challenge_card_category_id) values (19L, 60, '아침을 특별하게 시작해보세요. 아침에 일어나자마자 물 한잔 마시기', 1, '아침 물 한잔 인증하기', '아침의 시작, 물 한잔', 1, 7L);
+insert into File (id, create_dtm, file_key, challenge_card_id, url, member_id) values (19L, '15920101000000', 'key', 19L, 'https://i.namu.wiki/...webp', 1L);
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (55L, 19L, '물병 준비하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (56L, 19L, '아침에 물 한잔 마시기');
+
+insert into challenge_card (id, assign_score, description, difficulty, final_goal, title, experience, challenge_card_category_id) values (20L, 80, '스케치북을 들고 나가서 자연을 그려봅시다.', 5, '자연을 그려서 인증하기', '자연 스케치하기', 4, 4L);
+insert into File (id, create_dtm, file_key, challenge_card_id, url, member_id) values (20L, '15920101000000', 'key', 20L, 'https://i.namu.wiki/...webp', 1L);
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (57L, 20L, '스케치북과 필기구 준비하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (58L, 20L, '그리고 싶은 장소 찾아가기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (59L, 20L, '자연을 관찰하고 그려보기');
+
+insert into challenge_card (id, assign_score, description, difficulty, final_goal, title, experience, challenge_card_category_id) values (21L, 90, '일기를 통해 하루를 되돌아봅시다.', 3, '일기 작성 후 인증하기', '일기 쓰기', 2, 7L);
+insert into File (id, create_dtm, file_key, challenge_card_id, url, member_id) values (21L, '15920101000000', 'key', 21L, 'https://i.namu.wiki/...webp', 1L);
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (60L, 21L, '일기장 준비하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (61L, 21L, '하루의 기억을 되돌아보기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (62L, 21L, '감정과 생각을 일기에 적어보기');
+
+insert into challenge_card (id, assign_score, description, difficulty, final_goal, title, experience, challenge_card_category_id) values (22L, 100, '다른 나라의 음식을 직접 만들어 봅시다.', 6, '외국 음식 만들기 후 인증하기', '세계 음식 도전', 5, 4L);
+insert into File (id, create_dtm, file_key, challenge_card_id, url, member_id) values (22L, '15920101000000', 'key', 22L, 'https://i.namu.wiki/...webp', 1L);
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (63L, 22L, '만들고 싶은 음식 레시피 찾기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (64L, 22L, '재료 준비하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (65L, 22L, '음식 만들어보기');
+
+insert into challenge_card (id, assign_score, description, difficulty, final_goal, title, experience, challenge_card_category_id) values (23L, 70, '운동을 통해 활력을 불어넣어봅시다.', 4, '운동 후 셀카 인증하기', '활력의 원천, 운동하기', 3, 2L);
+insert into File (id, create_dtm, file_key, challenge_card_id, url, member_id) values (23L, '15920101000000', 'key', 23L, 'https://i.namu.wiki/...webp', 1L);
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (66L, 23L, '운동할 장소 선택하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (67L, 23L, '운동복과 운동화 준비하기');
+insert into challenge_card_sub_goal (id, challenge_card_id, sub_goal) values (68L, 23L, '30분 이상 운동하기');

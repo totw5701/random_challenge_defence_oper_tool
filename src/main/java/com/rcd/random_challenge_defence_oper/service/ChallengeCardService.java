@@ -37,7 +37,7 @@ public class ChallengeCardService {
 
     public Page<ChallengeDetailDto>
     readPageList(Integer nowPage) {
-        Pageable pageable = PageRequest.of(nowPage, 3, Sort.by("id").descending()); // 한 페이지에 15개씩 출력
+        Pageable pageable = PageRequest.of(nowPage, 15, Sort.by("id").descending()); // 한 페이지에 15개씩 출력
         Page<ChallengeCard> challenges = challengeCardRepository.findAll(pageable);
 
         // dto 변환

@@ -22,7 +22,6 @@ public class challengeCardController {
     @GetMapping(value = {"/challenge-card", "/challenge-card/{page}"})
     public String list(HttpServletRequest req, HttpServletResponse res,
                        Model model, @PathVariable Optional<Integer> page) {
-        System.out.println("hello");
         int nowPage = 0;
         if(page.isPresent()) {
             nowPage = page.get();

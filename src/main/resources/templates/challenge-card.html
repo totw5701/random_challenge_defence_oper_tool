@@ -60,7 +60,8 @@
             </li>
 
             <!-- Page Numbers -->
-            <li class="page-item" th:each="num : ${#numbers.sequence((challengeCards.getPageable().getPageNumber() / 10) * 10, T(java.lang.Math).min(((challengeCards.getPageable().getPageNumber() / 10) * 10) + 9, challengeCards.getTotalPages() - 1))}">
+            <li class="page-item" th:each="num : ${#numbers.sequence((challengeCards.getPageable().getPageNumber() / 10) * 10, T(java.lang.Math).min(((challengeCards.getPageable().getPageNumber() / 10) * 10) + 9, challengeCards.getTotalPages() - 1))}"
+                th:classappend="${num == challengeCards.getPageable().getPageNumber() ? 'active' : ''}">
                 <a class="page-link" th:href="${'/challenge-card/' + num}" th:text="${num + 1}">1</a>
             </li>
 
