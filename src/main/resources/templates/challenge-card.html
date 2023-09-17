@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Board</title>
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">RCD-oper</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/challenge-card}" href="#">CHALLNEGE-CARD</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/member-personality}" href="#">MEMBER-PERSONALITY</a>
+            </li>
+        </ul>
+        <a class="btn btn-danger ml-auto" th:href="@{/logout}" href="#">Logout</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="mb-4">CHALLENGE-CARD</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>FinalGoal</th>
+            <th>Difficulty</th>
+            <th>AssignScore</th>
+            <th>CreateDtm</th>
+            <th>Experience</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${challengeCards.content}">
+            <td th:text="${item.id}">1</td>
+            <td th:text="${item.title}">Title Here</td>
+            <td th:text="${item.description}">Slot1 Data</td>
+            <td th:text="${item.finalGoal}">Slot2 Data</td>
+            <td th:text="${item.difficulty}">Slot3 Data</td>
+            <td th:text="${item.assignScore}">Slot3 Data</td>
+            <td th:text="${item.createDtm}">Slot3 Data</td>
+            <td th:text="${item.experience}">Slot3 Data</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination">
+            <li class="page-item" th:if="${challengeCards.getPageable().getPageNumber() > 0}">
+                <a class="page-link" href="#" th:href="${'/challenge-card/' + (challengeCards.getPageable().getPageNumber() - 1)}">Previous</a>
+            </li>
+
+            <!-- Page Numbers -->
+            <li class="page-item" th:each="num : ${#numbers.sequence((challengeCards.getPageable().getPageNumber() / 10) * 10, T(java.lang.Math).min(((challengeCards.getPageable().getPageNumber() / 10) * 10) + 9, challengeCards.getTotalPages() - 1))}">
+                <a class="page-link" th:href="${'/challenge-card/' + num}" th:text="${num + 1}">1</a>
+            </li>
+
+            <li class="page-item" th:if="${challengeCards.getPageable().getPageNumber() < challengeCards.getTotalPages() - 1 }">
+                <a class="page-link" href="#" th:href="${'/challenge-card/' + (challengeCards.getPageable().getPageNumber() + 1)}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
