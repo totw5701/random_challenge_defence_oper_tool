@@ -5,10 +5,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ChallengeCardSubGoalRepository extends JpaRepository<ChallengeCardSubGoal, Long> {
 
 
     @Query("select csg from ChallengeCardSubGoal csg where csg.id = :subGoalId")
     void findMemberChallenge(@Param("subGoalId") Long subGoalId);
+
+    List<ChallengeCardSubGoal> findAllByChallengeCardId(Long id);
 }

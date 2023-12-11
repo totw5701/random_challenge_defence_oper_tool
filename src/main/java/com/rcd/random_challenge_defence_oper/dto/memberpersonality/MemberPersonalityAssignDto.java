@@ -2,8 +2,10 @@ package com.rcd.random_challenge_defence_oper.dto.memberpersonality;
 
 import lombok.Data;
 
-@Data
-public class MemberPersonalityDeleteDto {
+import java.util.List;
 
-    private Long id;
+@Data
+public class MemberPersonalityAssignDto {
+
+    private List<Long> ids;
 }

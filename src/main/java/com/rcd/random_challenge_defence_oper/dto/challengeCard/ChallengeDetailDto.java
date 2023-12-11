@@ -1,5 +1,6 @@
 package com.rcd.random_challenge_defence_oper.dto.challengeCard;
 
+import com.rcd.random_challenge_defence_oper.dto.challengeCategory.ChallengeCardCategoryDetailDto;
 import com.rcd.random_challenge_defence_oper.dto.file.FileDetailDto;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +21,4 @@ public class ChallengeDetailDto {
     private Integer experience;
     private List<ChallengeSubGoalDetailDto> challengeSubGoals;
     private ChallengeCardCategoryDetailDto challengeCardCategory;
-    private FileDetailDto image;
 }

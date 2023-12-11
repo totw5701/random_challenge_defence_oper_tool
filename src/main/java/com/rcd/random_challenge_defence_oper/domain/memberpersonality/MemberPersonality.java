@@ -27,6 +27,7 @@ public class MemberPersonality {
 
     public MemberPersonalityDetailDto toDetailDto() {
         return MemberPersonalityDetailDto.builder()
+                .id(this.id)
                 .title(this.title)
                 .description(this.description)
                 .build();

@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.rcd.random_challenge_defence_oper.domain.challengecardcategory.ChallengeCardCategory;
 import com.rcd.random_challenge_defence_oper.domain.challengecardsubgoal.ChallengeCardSubGoal;
-import com.rcd.random_challenge_defence_oper.domain.file.File;
 import com.rcd.random_challenge_defence_oper.dto.challengeCard.ChallengeDetailDto;
-import com.rcd.random_challenge_defence_oper.dto.challengeCard.ChallengePutReqDto;
+import com.rcd.random_challenge_defence_oper.dto.challengeCard.ChallengeCardPutReqDto;
 import com.rcd.random_challenge_defence_oper.dto.challengeCard.ChallengeSubGoalDetailDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,29 +40,21 @@ public class ChallengeCard {
     private Integer assignScore;
     private Integer experience;
 
-    @OneToOne(mappedBy = "challengeCard")
-    @JoinColumn(name = "challenge_card_id")
-    private File image;
-
     private String createDtm;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "challenge_card_id")
     private List<ChallengeCardSubGoal> challengeCardSubGoals;
 
-    public void update(ChallengePutReqDto form) {
+    public void update(ChallengeCardPutReqDto form) {
         this.title = (form.getTitle() != null) ? form.getTitle() : this.title;
         this.description = (form.getDescription() != null) ? form.getDescription() : this.description;
         this.finalGoal = (form.getFinalGoal() != null) ? form.getFinalGoal() : this.finalGoal;
         this.difficulty = (form.getDifficulty() != null) ? form.getDifficulty() : this.difficulty;
         this.assignScore = (form.getAssignScore() != null) ? form.getAssignScore() : this.assignScore;
         this.experience = (form.getExperience() != null) ? form.getExperience() : this.experience;
-
     }
 
-    public void imageUpdate(File newImage) {
-        this.image = newImage;
-    }
 
     public void updateChallengeCardCategory(ChallengeCardCategory challengeCardCategory) {
         this.challengeCardCategory = challengeCardCategory;
@@ -73,9 +64,6 @@ public class ChallengeCard {
         List<ChallengeSubGoalDetailDto> subGoals = new ArrayList<>();
         if(this.challengeCardSubGoals != null) {
             subGoals = challengeCardSubGoals.stream().map((challengeSubGoal -> challengeSubGoal.toDto())).collect(Collectors.toList());
-        }
-        if(this.image == null) {
-            this.image = new File();
         }
         return ChallengeDetailDto.builder()
                 .id(this.id)
@@ -88,7 +76,6 @@ public class ChallengeCard {
                 .experience(this.experience)
                 .challengeSubGoals(subGoals)
                 .challengeCardCategory(this.challengeCardCategory.toDetailDto())
-                .image(this.image.toDto())
                 .build();
     }
 

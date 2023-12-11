@@ -1,4 +1,4 @@
-package com.rcd.random_challenge_defence_oper.dto.challengeCard;
+package com.rcd.random_challenge_defence_oper.dto.challengeCategory;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

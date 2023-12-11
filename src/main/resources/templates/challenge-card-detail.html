@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Board</title>
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        label {
+            font-weight: bolder;
+        }
+
+        #memberPersonalityList {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .tag span {
+            margin-right: 10px;
+        }
+
+        .tag button {
+            cursor: pointer;
+        }
+    </style>
+    <script>
+
+        function removeTag(button) {
+            var tagDiv = button.closest(".tag");
+            if (tagDiv) {
+                tagDiv.remove();
+            }
+        }
+
+        function addTag() {
+            // 선택된 태그의 정보를 가져옵니다.
+            var personalitySelect = document.getElementById("personalitySelect");
+            var selectedPersonalityId = personalitySelect.value;
+            var selectedPersonalityName = personalitySelect.options[personalitySelect.selectedIndex].text;
+
+            // 이미 태그가 추가되었는지 확인합니다.
+            var existingTags = document.querySelectorAll('#memberPersonalityList .tag span');
+            for (var i = 0; i < existingTags.length; i++) {
+                if (existingTags[i].textContent === '#' + selectedPersonalityName) {
+                    return;
+                }
+            }
+
+            // 새로운 태그 요소를 생성합니다.
+            var tagDiv = document.createElement("div");
+            tagDiv.className = "tag";
+
+            var span = document.createElement("span");
+            span.textContent = '#' + selectedPersonalityName;
+
+            var hiddenInput = document.createElement("input");
+            hiddenInput.type = "hidden";
+            hiddenInput.name = "memberPersonalityList";
+            hiddenInput.value = selectedPersonalityId;
+
+            var deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = function() { removeTag(deleteButton); };
+
+            // 태그 요소에 span, 숨겨진 입력 필드, 삭제 버튼을 추가합니다.
+            tagDiv.appendChild(span);
+            tagDiv.appendChild(hiddenInput);
+            tagDiv.appendChild(deleteButton);
+
+            // 생성한 태그 요소를 태그 목록에 추가합니다.
+            var tagList = document.getElementById("memberPersonalityList");
+            tagList.appendChild(tagDiv);
+
+            // 선택된 태그의 값을 초기화합니다.
+            personalitySelect.selectedIndex = 0;
+        }
+
+        function removeSubGoal(button) {
+            // 클릭된 버튼의 부모 요소인 sub-goal 클래스를 가진 div 요소를 찾습니다.
+            var subGoalDiv = button.closest(".sub-goal");
+
+            // 찾은 div 요소를 삭제합니다.
+            if (subGoalDiv) {
+                subGoalDiv.remove();
+            }
+        }
+
+        function addSubGoal() {
+            var subGoalList = document.getElementById("subGoalList");
+
+            // 새로운 서브 골의 ID를 -1로 설정합니다.
+            var newIdValue = -1;
+
+            // 현재 가장 높은 인덱스를 찾아서 1을 더한 값을 idx로 설정합니다.
+            var idxInputs = document.querySelectorAll('[name^="idx"]');
+            var maxIdx = 0;
+            for (var i = 0; i < idxInputs.length; i++) {
+                var idxValue = parseInt(idxInputs[i].value);
+                if (!isNaN(idxValue) && idxValue >= maxIdx) {
+                    maxIdx = idxValue;
+                }
+            }
+            var newIdxValue = maxIdx + 1;
+
+            // 새로운 서브 골을 감싸는 div 요소를 생성합니다.
+            var newSubGoalDiv = document.createElement("div");
+            newSubGoalDiv.className = "sub-goal";
+
+            // 새로운 서브 골을 감싸는 row div 요소를 생성합니다.
+            var newRowDiv = document.createElement("div");
+            newRowDiv.className = "row";
+
+            var newColDiv = document.createElement("div");
+            newColDiv.className = "col";
+
+            var newColAutoDiv = document.createElement("div");
+            newColAutoDiv.className = "col-auto";
+
+            // ID 입력 필드를 생성하고 설정합니다.
+            var newIdInput = document.createElement("input");
+            newIdInput.type = "text";
+            newIdInput.className = "form-control";
+            newIdInput.name = "id";
+            newIdInput.value = newIdValue;
+            newIdInput.hidden = true;
+
+            // idx 입력 필드를 생성하고 설정합니다.
+            var newIdxInput = document.createElement("input");
+            newIdxInput.type = "text";
+            newIdxInput.className = "form-control";
+            newIdxInput.name = "idx";
+            newIdxInput.value = newIdxValue;
+            newIdxInput.hidden = true;
+
+            // subGoal 입력 필드를 생성합니다.
+            var newSubGoalInput = document.createElement("input");
+            newSubGoalInput.type = "text";
+            newSubGoalInput.className = "form-control";
+            newSubGoalInput.name = "challengeSubGoals";
+            newSubGoalInput.maxLength = 150;
+
+            // 삭제 버튼을 생성합니다.
+            var deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "btn btn-danger";
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = function() {
+                removeSubGoal(newSubGoalDiv);
+            };
+
+            // 생성한 입력 필드와 버튼을 서브 골 div에 추가합니다.
+            newColDiv.appendChild(newIdInput);
+            newColDiv.appendChild(newIdxInput);
+            newColDiv.appendChild(newSubGoalInput);
+            newColAutoDiv.appendChild(deleteButton);
+            newRowDiv.appendChild(newColDiv);
+            newRowDiv.appendChild(newColAutoDiv);
+
+            // 서브 골 div를 서브 골 목록에 추가합니다.
+            newSubGoalDiv.appendChild(newRowDiv);
+            subGoalList.appendChild(newSubGoalDiv);
+        }
+    </script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">RCD-oper</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/challenge-card}" href="#">CHALLNEGE-CARD</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/member-personality}" href="#">MEMBER-PERSONALITY</a>
+            </li>
+        </ul>
+        <a class="btn btn-danger ml-auto" th:href="@{/logout}" href="#">Logout</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="mb-4">CHALLENGE-CARD</h2>
+
+    <form class="form" action="/challenge-card/update" method="POST">
+        <div class="form-group">
+            <label for="inputId">ID</label>
+            <input readonly type="text" class="form-control" id="inputId" name="id" th:value="${card.id}" />
+        </div>
+
+        <div class="form-group">
+            <label for="inputTitle">Title</label>
+            <input type="text" class="form-control" id="inputTitle" name="title" maxlength='100' th:value="${card.title}" />
+        </div>
+
+        <div class="form-group">
+            <label for="inputDescription">Description</label>
+            <input type="text" class="form-control" id="inputDescription" name="description" maxlength='250' th:value="${card.description}" />
+        </div>
+
+        <div class="form-group">
+            <label for="inputFinalGoal">Final Goal</label>
+            <input type="text" class="form-control" id="inputFinalGoal" name="finalGoal" maxlength='100' th:value="${card.finalGoal}" />
+        </div>
+
+        <div class="form-group">
+            <label>Difficulty</label>
+            <div class="row">
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="difficulty1" name="difficulty" value="1" th:checked="${card.difficulty == 1}" />
+                        <label class="form-check-label" for="difficulty1">1</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="difficulty2" name="difficulty" value="2" th:checked="${card.difficulty == 2}" />
+                        <label class="form-check-label" for="difficulty2">2</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="difficulty3" name="difficulty" value="3" th:checked="${card.difficulty == 3}" />
+                        <label class="form-check-label" for="difficulty3">3</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="difficulty4" name="difficulty" value="4" th:checked="${card.difficulty == 4}" />
+                        <label class="form-check-label" for="difficulty4">4</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="difficulty5" name="difficulty" value="5" th:checked="${card.difficulty == 5}" />
+                        <label class="form-check-label" for="difficulty5">5</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Challenge Sub Goals</label>
+            <div id="subGoalList">
+                <div th:each="subGoal, subGoalStat : ${card.challengeSubGoals}" class="sub-goal">
+                    <div class="row">
+                        <div class="col">
+<!--
+                            <input type="text" class="form-control" name="id" th:value="${subGoal.id}" hidden />
+-->
+                            <input type="text" class="form-control" name="idx" th:value="${subGoalStat.index}" hidden />
+                            <input type="text" class="form-control" name="challengeSubGoals" maxlength='150' th:value="${subGoal.subGoal}" />
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-danger" onclick="removeSubGoal(this)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="addSubGoal()">Add Sub Goal</button>
+        </div>
+
+        <div class="form-group">
+            <label for="categorySelect">Challenge Category</label>
+            <select class="form-control" id="categorySelect" name="challengeCardCategoryId">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.title}"
+                        th:selected="${category.id == card.ChallengeCardCategory.id}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Member Personality Tags</label>
+            <div id="memberPersonalityList">
+                <!-- 기존 태그 표시 -->
+                <div th:each="personality : ${selectedPersonalities}" class="tag">
+                    <span th:text="'#' + ${personality.title}"></span>
+                    <input type="hidden" name="memberPersonalityList" th:value="${personality.id}" />
+                    <button type="button" onclick="removeTag(this)">Delete</button>
+                </div>
+            </div>
+            <select id="personalitySelect">
+                <!-- 여기에 선택 가능한 태그 목록을 추가 -->
+                <option th:each="personality : ${allPersonalities}" th:value="${personality.id}" th:text="${personality.title}"></option>
+            </select>
+            <button type="button" onclick="addTag()">Add Tag</button>
+        </div>
+
+        <div class="form-group">
+            <label for="inputAssignScore">Assign Score</label>
+            <input type="number" class="form-control" id="inputAssignScore" name="assignScore" min="0" max="100" th:value="${card.assignScore}" />
+        </div>
+
+        <div class="form-group">
+            <label for="inputCreateDtm">Create Date Time</label>
+            <input readonly type="text" class="form-control" id="inputCreateDtm" name="createDtm" th:value="${card.createDtm}" />
+        </div>
+
+        <div class="form-group">
+            <label for="inputExperience">Experience</label>
+            <input type="number" class="form-control" id="inputExperience" name="experience" min="1" max="100" th:value="${card.experience}" />
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+    <form class="form" action="/challenge-card/delete" method="POST" style="margin-top: 20px">
+        <input hidden type="text" class="form-control" name="id" th:value="${card.id}" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

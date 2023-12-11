@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 public class MemberPersonalityDetailDto {
 
+    private Long id;
     private String title;
     private String description;
 }

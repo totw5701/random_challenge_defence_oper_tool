@@ -1,7 +1,6 @@
 package com.rcd.random_challenge_defence_oper.domain.challengecardcategory;
 
-import com.rcd.random_challenge_defence_oper.dto.challengeCard.ChallengeCardCategoryDetailDto;
-import com.rcd.random_challenge_defence_oper.dto.challengeCard.ChallengeCardCategoryUpdateDto;
+import com.rcd.random_challenge_defence_oper.dto.challengeCategory.ChallengeCardCategoryDetailDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,11 +24,6 @@ public class ChallengeCardCategory {
 
     private String title;
     private String description;
-
-    public void update(ChallengeCardCategoryUpdateDto form) {
-        this.title = form.getTitle();
-        this.description = form.getDescription();
-    }
 
     public ChallengeCardCategoryDetailDto toDetailDto() {
         return ChallengeCardCategoryDetailDto.builder()
