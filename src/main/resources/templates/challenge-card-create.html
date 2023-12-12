@@ -170,6 +170,21 @@
             newSubGoalDiv.appendChild(newRowDiv);
             subGoalList.appendChild(newSubGoalDiv);
         }
+
+        function calculateAverage() {
+            var scores = [
+                parseInt(document.getElementById('immediateExecution').value),
+                parseInt(document.getElementById('physicalExertion').value),
+                parseInt(document.getElementById('movementExtent').value),
+                parseInt(document.getElementById('soloPerformance').value),
+                parseInt(document.getElementById('preparationRequired').value),
+                parseInt(document.getElementById('timeRequired').value)
+            ];
+
+            var sum = scores.reduce((a, b) => a + b, 0);
+            var average = sum / scores.length;
+            document.getElementById('averageScore').textContent = average.toFixed(2);
+        }
     </script>
 
 </head>
@@ -198,16 +213,19 @@
         <div class="form-group">
             <label for="inputTitle">Title</label>
             <input type="text" class="form-control" id="inputTitle" name="title" maxlength='100' th:value="${card.title}" />
+            <span class="help-block text-muted">챌린지의 이름을 명확하고 구체적으로 입력해주세요. (최대 100자)</span>
         </div>
 
         <div class="form-group">
             <label for="inputDescription">Description</label>
             <input type="text" class="form-control" id="inputDescription" name="description" maxlength='250' th:value="${card.description}" />
+            <span class="help-block text-muted">챌린지의 간단한 설명과 이를 통해 사용자가 경험했으면 하는 취지를 설명해주세요. (최대 250자)</span>
         </div>
 
         <div class="form-group">
             <label for="inputFinalGoal">Final Goal</label>
             <input type="text" class="form-control" id="inputFinalGoal" name="finalGoal" maxlength='100' th:value="${card.finalGoal}" />
+            <span class="help-block text-muted">챌린지의 최종 목표를 명확하게 기술해주세요. (최대 100자)</span>
         </div>
 
         <div class="form-group">
@@ -244,6 +262,83 @@
                     </div>
                 </div>
             </div>
+            <span class="help-block text-muted">아래 계산기를 사용해 챌린지 카드의 난이도를 산정해주세요.</span>
+        </div>
+
+        <div class="container">
+            <h4 class="mt-4">Difficulty calculator</h4>
+            <div class="row mt-4">
+                <div class="col">
+                    <label for="immediateExecution">지금 당장 수행 가능 여부</label>
+                    <select class="form-control" id="immediateExecution">
+                        <option value="1">1: 즉시 수행 가능</option>
+                        <option value="2">2: 1~2시간 안에 수행 가능</option>
+                        <option value="3">3: 당일 수행 가능</option>
+                        <option value="4">4: 당일 수행 불가능</option>
+                        <option value="5">5: 많은 계획과 준비 후 수행 가능</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="physicalExertion">체력 소모 정도</label>
+                    <select class="form-control" id="physicalExertion">
+                        <option value="1">1: 체력 소모 없음</option>
+                        <option value="2">2: 약간의 움직임 필요</option>
+                        <option value="3">3: 가벼운 운동 정도의 체력 소모</option>
+                        <option value="4">4: 격렬한 운동 정도의 체력 소모</option>
+                        <option value="5">5: 한계까지 몰아부칠 정도의 체력소모</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="movementExtent">이동하는 정도</label>
+                    <select class="form-control" id="movementExtent">
+                        <option value="1">1: 그 자리에서 수행 가능</option>
+                        <option value="2">2: 근거리 이동으로 수행 가능 (동네)</option>
+                        <option value="3">3: 중거리 이동으로 수행 가능 (지역 이동)</option>
+                        <option value="4">4: 국내 여행이 필요한 경우</option>
+                        <option value="5">5: 해외 여행이 필요한 경우</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <label for="soloPerformance">혼자 수행 가능여부</label>
+                    <select class="form-control" id="soloPerformance">
+                        <option value="1">1: 혼자 수행 가능</option>
+                        <option value="2">2: 1인 ~ 2인 이상 필요</option>
+                        <option value="3">3: 3인 이상 필요</option>
+                        <option value="4">4: 다인 필요.</option>
+                        <option value="5">5: 대규모 인원 필요.</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="preparationRequired">준비물 필요 여부</label>
+                    <select class="form-control" id="preparationRequired">
+                        <option value="1">1: 준비물 필요 없음</option>
+                        <option value="2">2: 집에 누구나 있을 법한 준비물</option>
+                        <option value="3">3: 저가 (3만원 이하) 소비가 필요한 경우</option>
+                        <option value="4">4: 중저가 (10만원 이하) 소비가 필요한 경우.</option>
+                        <option value="5">5: 고가 (10만원 이상) 소비가 필요한 경우.</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="timeRequired">시간 소요 정도</label>
+                    <select class="form-control" id="timeRequired">
+                        <option value="1">1: 1시간 이하</option>
+                        <option value="2">2: 3시간 이하</option>
+                        <option value="3">3: 1일 소요.</option>
+                        <option value="4">4: 1주일 이하 소요</option>
+                        <option value="5">5: 1주일 이상 소요</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col text-center">
+                    <button type="button" class="btn btn-primary" onclick="calculateAverage()">평균 점수 계산</button>
+                </div>
+                <div class="col text-center">
+                    <p>평균 점수: <span id="averageScore">-</span></p>
+                </div>
+            </div>
         </div>
 
         <div class="form-group">
@@ -263,6 +358,7 @@
                         </div>
                     </div>
                 </div>
+                <span class="help-block text-muted">최종 목표를 달성하기까지 수행해야할 중간 과제들을 만들어주세요. 사소한 과제라도 좋아요.</span>
             </div>
             <button type="button" class="btn btn-primary" onclick="addSubGoal()">Add Sub Goal</button>
         </div>
@@ -272,6 +368,7 @@
             <select class="form-control" id="categorySelect" name="challengeCardCategoryId">
                 <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.title}" />
             </select>
+            <span class="help-block text-muted">챌린지 카테고리를 선택해주세요.</span>
         </div>
 
         <div class="form-group">
@@ -291,16 +388,22 @@
                 <option th:each="personality : ${allPersonalities}" th:value="${personality.id}" th:text="${personality.title}"></option>
             </select>
             <button type="button" onclick="addTag()">Add Tag</button>
+            <div>
+                <span class="help-block text-muted">특성 태그를 선택해주세요.</span>
+            </div>
         </div>
 
         <div class="form-group">
             <label for="inputAssignScore">Assign Score</label>
             <input type="number" class="form-control" id="inputAssignScore" name="assignScore" min="0" max="100" th:value="${card.assignScore}" />
+            <span class="help-block text-muted">우선 부여 점수를 부여해주세요. 챌린지 카드는 랜덤으로 부여되지만 우선 부여점수가 높을 수록 조금 더 높은 확률로 부여됩니다.</span>
+
         </div>
 
         <div class="form-group">
             <label for="inputExperience">Experience</label>
-            <input type="number" class="form-control" id="inputExperience" name="experience" min="1" max="100" th:value="${card.experience}" />
+            <input type="number" class="form-control" id="inputExperience" name="experience" min="0" max="100" th:value="${card.experience}" />
+            <span class="help-block text-muted">과제를 완료하고 받게될 경험치를 산정해주세요.</span>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
