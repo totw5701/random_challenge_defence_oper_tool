@@ -32,8 +32,10 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                .anyRequest().permitAll()
-                //.anyRequest().authenticated()
+                //.anyRequest().permitAll()
+                .anyRequest().authenticated()
+            .and()
+                .formLogin().and().httpBasic()
 
         ;
         return http.build();

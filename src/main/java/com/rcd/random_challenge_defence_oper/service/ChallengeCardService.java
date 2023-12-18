@@ -169,7 +169,11 @@ public class ChallengeCardService {
 
     public void delete(Long id) {
         ChallengeCard challengeCard = findById(id);
+        List<ChallengeCardSubGoal> challengeCardSubGoals = challengeCard.getChallengeCardSubGoals();
+        List<ChallengeCardMemberPersonality> challengeCardMemberPersonalities = challengeCard.getChallengeCardMemberPersonalities();
         challengeCardRepository.delete(challengeCard);
+        challengeCardSubGoalRepository.deleteAll(challengeCardSubGoals);
+        challengeCardMemberPersonalityRepository.deleteAll(challengeCardMemberPersonalities);
     }
 
     public void updateChallengeCard(ChallengeCardPutReqDto form) throws Exception {

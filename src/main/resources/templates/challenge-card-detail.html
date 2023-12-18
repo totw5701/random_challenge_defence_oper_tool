@@ -185,6 +185,16 @@
             var average = sum / scores.length;
             document.getElementById('averageScore').textContent = average.toFixed(2);
         }
+
+        function confirmDelete() {
+            var result = confirm("삭제하시겠습니까?");
+
+            if (result) {
+                return true; // 폼 제출
+            } else {
+                return false; // 폼 중지
+            }
+        }
     </script>
 
 </head>
@@ -419,7 +429,7 @@
 
     </form>
 
-    <form class="form" action="/challenge-card/delete" method="POST" style="margin-top: 20px">
+    <form class="form" action="/challenge-card/delete" method="POST" style="margin-top: 20px" onsubmit="return confirmDelete();">
         <input hidden type="text" class="form-control" name="id" th:value="${card.id}" />
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>

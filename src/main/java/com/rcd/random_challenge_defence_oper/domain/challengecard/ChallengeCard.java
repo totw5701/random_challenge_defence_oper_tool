@@ -3,6 +3,7 @@ package com.rcd.random_challenge_defence_oper.domain.challengecard;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.rcd.random_challenge_defence_oper.domain.challengecardcategory.ChallengeCardCategory;
+import com.rcd.random_challenge_defence_oper.domain.challengecardmemberpersonality.ChallengeCardMemberPersonality;
 import com.rcd.random_challenge_defence_oper.domain.challengecardsubgoal.ChallengeCardSubGoal;
 import com.rcd.random_challenge_defence_oper.dto.challengeCard.ChallengeDetailDto;
 import com.rcd.random_challenge_defence_oper.dto.challengeCard.ChallengeCardPutReqDto;
@@ -42,9 +43,13 @@ public class ChallengeCard {
 
     private String createDtm;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "challenge_card_id")
     private List<ChallengeCardSubGoal> challengeCardSubGoals;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "challenge_card_id")
+    private List<ChallengeCardMemberPersonality> challengeCardMemberPersonalities;
 
     public void update(ChallengeCardPutReqDto form) {
         this.title = (form.getTitle() != null) ? form.getTitle() : this.title;

@@ -39,3 +39,4 @@ out/
 
 application-auth.yml
 application-s3.yml
+application-db.yml
