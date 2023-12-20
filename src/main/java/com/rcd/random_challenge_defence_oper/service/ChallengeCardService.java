@@ -168,12 +168,14 @@ public class ChallengeCardService {
     }
 
     public void delete(Long id) {
-        ChallengeCard challengeCard = findById(id);
-        List<ChallengeCardSubGoal> challengeCardSubGoals = challengeCard.getChallengeCardSubGoals();
-        List<ChallengeCardMemberPersonality> challengeCardMemberPersonalities = challengeCard.getChallengeCardMemberPersonalities();
-        challengeCardRepository.delete(challengeCard);
-        challengeCardSubGoalRepository.deleteAll(challengeCardSubGoals);
+        List<ChallengeCardSubGoal> subGoals = challengeCardSubGoalRepository.findAllByChallengeCardId(id);
+        challengeCardSubGoalRepository.deleteAll(subGoals);
+
+        List<ChallengeCardMemberPersonality> challengeCardMemberPersonalities = challengeCardMemberPersonalityRepository.findAllByChallengeCardId(id);
         challengeCardMemberPersonalityRepository.deleteAll(challengeCardMemberPersonalities);
+
+        ChallengeCard challengeCard = findById(id);
+        challengeCardRepository.delete(challengeCard);
     }
 
     public void updateChallengeCard(ChallengeCardPutReqDto form) throws Exception {
@@ -183,9 +185,7 @@ public class ChallengeCardService {
 
         // 기존 챌린지 중간목표 삭제
         List<ChallengeCardSubGoal> challengeCardSubGoals = challengeCardSubGoalRepository.findAllByChallengeCardId(form.getId());
-        for(ChallengeCardSubGoal challengeCardSubGoal : challengeCardSubGoals) {
-            challengeCardSubGoalRepository.deleteById(challengeCardSubGoal.getId());
-        }
+        challengeCardSubGoalRepository.deleteAll(challengeCardSubGoals);
 
         Optional<ChallengeCard> challengeCardOp = challengeCardRepository.findById(form.getId());
         if(!challengeCardOp.isPresent()) {
@@ -223,7 +223,11 @@ public class ChallengeCardService {
         challengeCard.update(form);
 
         // 챌린지 카테고리 업데이트
-        ChallengeCardCategory challengeCardCategory = challengeCardCategoryRepository.findById(form.getChallengeCardCategoryId()).get();
+        Optional<ChallengeCardCategory> categoryOp = challengeCardCategoryRepository.findById(form.getChallengeCardCategoryId());
+        if(!categoryOp.isPresent()) {
+            throw new IllegalArgumentException("존재하지 않는 카테고리입니다.");
+        }
+        ChallengeCardCategory challengeCardCategory = categoryOp.get();
         challengeCard.updateChallengeCardCategory(challengeCardCategory);
     }
 
@@ -267,6 +271,4 @@ public class ChallengeCardService {
 
         return challengeCard;
     }
-
-
 }
