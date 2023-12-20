@@ -21,7 +21,9 @@ public class ChallengeCardSubGoal {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "challenge_card_id")
     private ChallengeCard challengeCard;
+
     private String subGoal;
 
     public ChallengeSubGoalDetailDto toDto() {

@@ -21,7 +21,10 @@ public class ChallengeCardMemberPersonality {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "challenge_card_id")
     private ChallengeCard challengeCard;
+
     @ManyToOne
+    @JoinColumn(name = "member_personality_id")
     private MemberPersonality memberPersonality;
 }

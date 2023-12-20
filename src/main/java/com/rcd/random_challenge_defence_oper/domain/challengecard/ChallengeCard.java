@@ -43,12 +43,10 @@ public class ChallengeCard {
 
     private String createDtm;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "challenge_card_id")
+    @OneToMany(mappedBy = "challengeCard", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ChallengeCardSubGoal> challengeCardSubGoals;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "challenge_card_id")
+    @OneToMany(mappedBy = "challengeCard", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ChallengeCardMemberPersonality> challengeCardMemberPersonalities;
 
     public void update(ChallengeCardPutReqDto form) {
