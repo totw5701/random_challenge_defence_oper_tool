@@ -81,8 +81,4 @@ public class ChallengeCard {
                 .challengeCardCategory(this.challengeCardCategory.toDetailDto())
                 .build();
     }
-
-    public void assignSubGoals(List<ChallengeCardSubGoal> subGoals){
-        this.challengeCardSubGoals = subGoals;
-    }
 }

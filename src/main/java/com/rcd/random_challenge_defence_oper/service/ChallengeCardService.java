@@ -90,81 +90,12 @@ public class ChallengeCardService {
         return challengeDtoPage;
     }
 
-    public ChallengeDetailDto create(ChallengeCardPutReqDto form) {
-
-        ChallengeCardCategory challengeCardCategory = challengeCardCategoryRepository.findById(form.getChallengeCardCategoryId()).get();
-
-        // 챌린지 카드 생성
-        ChallengeCard challengeCard = ChallengeCard.builder()
-                .assignScore(form.getAssignScore())
-                .title(form.getTitle())
-                .difficulty(form.getDifficulty())
-                .description(form.getDescription())
-                .finalGoal(form.getFinalGoal())
-                .createDtm(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")))
-                .challengeCardCategory(challengeCardCategory)
-                .experience(form.getExperience())
-                .build();
-
-        // 챌린지 카드 중간 도전 리스트 생성 및 할당
-        List<ChallengeCardSubGoal> subGoals = form.getChallengeSubGoals().stream()
-                .map(subGoalDto -> ChallengeCardSubGoal.builder()
-                        .challengeCard(challengeCard)
-                        .subGoal(subGoalDto)
-                        .build())
-                .collect(Collectors.toList());
-        challengeCard.assignSubGoals(subGoals);
-
-        ChallengeCard save = challengeCardRepository.save(challengeCard);
-
-        return challengeCard.toDetailDto();
-    }
-
-    public ChallengeDetailDto readOne(Long id){
-        return findById(id).toDetailDto();
-    }
-
     public ChallengeCard findById(Long id) {
         Optional<ChallengeCard> opChallenge = challengeCardRepository.findById(id);
         if(!opChallenge.isPresent()) {
             log.error("challengeCard is not exist");
         }
         return opChallenge.get();
-    }
-
-    public ChallengeCard update(ChallengeCardPutReqDto form) {
-        ChallengeCard challenge = findById(form.getId());
-        challenge.update(form);
-
-        // 챌린지 카테고리 업데이트
-        if(form.getChallengeCardCategoryId() != null) {
-            Optional<ChallengeCardCategory> opChallengeCardCategory = challengeCardCategoryRepository.findById(form.getChallengeCardCategoryId());
-            if(!opChallengeCardCategory.isPresent()) {
-                log.error("존재하지 않는 챌린지 카테고리입니다.");
-            }
-            challenge.updateChallengeCardCategory(opChallengeCardCategory.get());
-        }
-
-        // 챌린지 카드 중간목표 수정
-        if(form.getChallengeSubGoals() != null) {
-            List<ChallengeCardSubGoal> oldChallengeCardSubGoals = challenge.getChallengeCardSubGoals();
-
-            List<ChallengeCardSubGoal> newChallengeCardSubGoals = form.getChallengeSubGoals().stream()
-                    .map(subGoalDto -> ChallengeCardSubGoal.builder()
-                            .challengeCard(challenge)
-                            .subGoal(subGoalDto)
-                            .build())
-                    .collect(Collectors.toList());
-
-            // 이전 중간 목표 삭제
-            for(ChallengeCardSubGoal goal : oldChallengeCardSubGoals){
-                challengeCardSubGoalRepository.delete(goal);
-            }
-
-            challenge.assignSubGoals(newChallengeCardSubGoals);
-        }
-
-        return challenge;
     }
 
     public void delete(Long id) {
